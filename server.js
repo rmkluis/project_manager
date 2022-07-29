@@ -5,7 +5,7 @@ import dotenv from "dotenv"
 //
 dotenv.config()
 //
-let PORT = process.env.port || 3000
+let PORT = process.env.PORT || 3000
 //----------------------------declaring express variable and use
 const app = express();
 app.use(express.json());
@@ -14,7 +14,7 @@ app.use(express.static('static'));
 const pool = new pg.Pool({
     connectionString: process.env.DATABASE_URL,
     ssl:{
-        rejectUnauthorized: false
+        rejectUnauthorized: false,
     }
 });
 //----------------------------routes
