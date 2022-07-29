@@ -1,12 +1,17 @@
 //----------------------------imports
 import express from "express";
 import pg from "pg";
+import dotenv from "dotenv"
+//
+dotenv.config()
+//
+let PORT = process.env.port || 3000
 //----------------------------declaring express variable and use
 const app = express();
 app.use(express.json());
 app.use(express.static('static'));
 //----------------------------database variable
-const pool = new pg.Pool({database: "projectapp"});
+const pool = new pg.Pool();
 //----------------------------routes
 ////URL flexible GET routes
 //////GET all table info
@@ -91,6 +96,6 @@ app.use((err, req, res, next)=>{
     res.sendStatus(500);
 });
 //----------------------------Port in use
-app.listen(4000, ()=>{console.log('Port 4000 firing')});
+app.listen(PORT, ()=>{console.log(`Port ${PORT} firing`)});
 
 //Object.keys(data.rows[0]).join(', ')

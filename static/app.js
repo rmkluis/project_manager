@@ -3,7 +3,12 @@ let div = document.createElement('div')
 let button = document.createElement('button')
 let button1 = document.createElement('button')
 let button2 = document.createElement('button')
+///
 div.textContent = "potato"
+button.textContent = "employees"
+button1.textContent = "matching"
+button2.textContent = "projects"
+///
 body.append(div)
 body.append(button)
 body.append(button1)
@@ -36,4 +41,3 @@ console.log("fello")
 
 
 
-// $.get("/api/employees", function(data, status){
