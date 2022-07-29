@@ -11,7 +11,12 @@ const app = express();
 app.use(express.json());
 app.use(express.static('static'));
 //----------------------------database variable
-const pool = new pg.Pool();
+const pool = new pg.Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl:{
+        rejectUnauthorized: false
+    }
+});
 //----------------------------routes
 ////URL flexible GET routes
 //////GET all table info
