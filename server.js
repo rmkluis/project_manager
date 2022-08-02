@@ -13,9 +13,7 @@ app.use(express.static('static'));
 //----------------------------database variable
 const pool = new pg.Pool({
     connectionString: process.env.DATABASE_URL,
-    ssl:{
-        rejectUnauthorized: false,
-    }
+    ...(process.env.NODE_ENV === "production" ? {ssl: {rejectUnauthorized: false,},}:{}),
 });
 //----------------------------routes
 ////URL flexible GET routes
@@ -42,11 +40,11 @@ app.get('/api/:table/:row', (req, res)=>{
 app.post("/api/:table", (req, res) => {
     let table = req.params.table;
     if(table === "employees"){
-        let { first_name, last_name, avatar, username, email, phone_number } = req.body;
+        let { first_name, last_name, avatar, username, email, phone_number, supervisor } = req.body;
       pool
         .query(
-          `INSERT INTO employees (first_name, last_name, avatar, username, email, phone_number) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
-          [first_name, last_name, avatar, username, email, phone_number]
+          `INSERT INTO employees (first_name, last_name, avatar, username, email, phone_number, supervisor) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
+          [first_name, last_name, avatar, username, email, phone_number, supervisor]
         )
         .then((datax) => {
           res.send(datax.rows[0]);
